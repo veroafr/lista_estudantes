@@ -29,7 +29,7 @@ class _Pagina1State extends State<Pagina1> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Lista de Estudantes'),
-        backgroundColor: Colors.green,
+        backgroundColor: const Color.fromARGB(255, 100, 128, 101),
       ),
       body: ListView.builder(
         itemCount: listaEstudantes.length,
