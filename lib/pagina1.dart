@@ -1,51 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:lista_pessoas/estudante.dart';
+import 'package:lista_pessoas/meuwidget.dart';
 
 class Pagina1 extends StatefulWidget {
-  const Pagina1({Key? key}) : super(key: key);
+  Pagina1({Key? key}) : super(key: key);
 
   @override
-  State<Pagina1> createState() => _Pagina1State();
+  _Pagina1State createState() => _Pagina1State();
 }
 
-class _Pagina1State extends State<Pagina1> with SingleTickerProviderStateMixin {
-  // Declaração correta da lista de estudantes.
-  final List<String> listaEstudantes = ["Nome 1", "Nome 2", "Nome 3","Nome 4"];
-  late AnimationController _controller;
+class _Pagina1State extends State<Pagina1> {
+  final List<Estudante> listaEstudantes = [
+    Estudante(nome: "Matias", curso: "TADS"),
+    Estudante(nome: "Santiago", curso: "TADS"),
+    Estudante(nome: "Luis", curso: "TADS"),
+    Estudante(nome: "Victor", curso: "CC"),
+    Estudante(nome: "Helena", curso: "SER"),
+  ];
 
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      // Define a duração se necessário
-      
-      duration: const Duration(seconds: 1),
-    );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
+  void _delete(int index) {
+    setState(() {
+      listaEstudantes.removeAt(index);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Lista de Estudantes"),
+        title: const Text('Lista de Estudantes'),
         backgroundColor: Colors.green,
       ),
       body: ListView.builder(
         itemCount: listaEstudantes.length,
         itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              listaEstudantes[index],
-              style: const TextStyle(fontSize: 18),
-            ),
-          );
+          return MeuWidget(nome: listaEstudantes[index].nome, curso: listaEstudantes[index].curso, onDelete: () => _delete(index));
         },
       ),
     );
